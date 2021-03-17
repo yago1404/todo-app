@@ -73,7 +73,6 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
             onEditingComplete: () {
               taskService.addTask(this._titleController.text,
                   this._descriptionController.text, false);
-              print("Task add");
               Navigator.pop(context);
             },
             textInputAction: TextInputAction.done,

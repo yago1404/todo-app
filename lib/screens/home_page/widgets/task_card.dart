@@ -12,12 +12,10 @@ class TaskCard extends StatefulWidget {
 }
 
 class _TaskCardState extends State<TaskCard> {
-  bool isDone;
 
   @override
   void initState() {
     super.initState();
-    isDone = widget.task.status;
   }
 
   @override
@@ -41,7 +39,7 @@ class _TaskCardState extends State<TaskCard> {
             style: TextStyle(color: Colors.grey),
           ),
           trailing: Icon(
-            this.isDone ? Icons.check_circle : Icons.radio_button_unchecked,
+            this.widget.task.status ? Icons.check_circle : Icons.radio_button_unchecked,
             color: Colors.green,
           ),
         ),
@@ -51,8 +49,7 @@ class _TaskCardState extends State<TaskCard> {
 
   _changeStatus() {
     setState(() {
-      this.isDone = !this.isDone;
-      this.widget.task.status = this.isDone;
+      this.widget.task.status = !this.widget.task.status;
     });
 
     widget.callback(widget.task.id);

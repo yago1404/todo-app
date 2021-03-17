@@ -21,7 +21,7 @@ class _HomePageState extends State<HomePage> {
 
   callbackFabIcon(int taskId) {
     var task = taskService.getTask(taskId);
-    if(task != false) {
+    if (task != false) {
       setState(() {
         this.taskList = taskService.allTasks;
         var tempStatus = false;
@@ -39,9 +39,8 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       taskService.deleteTask(this.selectedTasks);
       setSelectedTasks();
-      this._someTaskSelected = false;
+      setFabState();
       taskList = taskService.allTasks;
-      print("taskList : $taskList");
     });
   }
 
@@ -122,11 +121,14 @@ class _HomePageState extends State<HomePage> {
   }
 
   void setSelectedTasks() {
+    this._someTaskSelected = false;
     List<Task> tempList = [];
-    for(var i in taskList) {
-      if(i.status) tempList.add(i);
+    for (var i in taskList) {
+      if (i.status) {
+        tempList.add(i);
+        this._someTaskSelected = true;
+      }
     }
     this.selectedTasks = tempList;
-    print(selectedTasks);
   }
 }
