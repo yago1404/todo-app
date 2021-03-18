@@ -3,7 +3,7 @@ import 'package:todo/models/task/task.dart';
 
 class TaskService {
 
-  List<Task> get allTasks {
+  List<Task> get getAllTasks {
     return tasks;
   }
 
@@ -14,12 +14,14 @@ class TaskService {
   }
 
   addTask(String title, String description, bool status) {
-    var id = tasks[tasks.length - 1].id + 1;
+    var id;
+    if(tasks.length > 0) id = tasks[tasks.length - 1].id + 1;
+    else id = 1;
     Task task = Task(title, description, status, id);
     tasks.add(task);
   }
 
-  getTask(int taskId) {
+  getTaskById(int taskId) {
     for (var i in tasks) {
       if(i.id == taskId) return i;
     }
