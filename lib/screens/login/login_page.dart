@@ -32,22 +32,44 @@ class LoginPage extends StatelessWidget {
               SizedBox(
                 height: 40,
               ),
-              TextField(
-                controller: loginController,
-                decoration: InputDecoration(
-                  hintText: "login",
-                  border: OutlineInputBorder(),
+              Container(
+                padding:
+                    EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 5),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(5),
+                  border: Border.all(
+                    color: Colors.grey,
+                    width: 1,
+                  ),
+                ),
+                child: TextField(
+                  controller: loginController,
+                  decoration: InputDecoration(
+                    hintText: "login",
+                    border: InputBorder.none,
+                  ),
                 ),
               ),
               SizedBox(
                 height: 15,
               ),
-              TextField(
-                controller: passwordController,
-                obscureText: true,
-                decoration: InputDecoration(
-                  hintText: "Password",
-                  border: OutlineInputBorder(),
+              Container(
+                padding:
+                    EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 5),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(5),
+                  border: Border.all(
+                    color: Colors.grey,
+                    width: 1,
+                  ),
+                ),
+                child: TextField(
+                  controller: passwordController,
+                  obscureText: true,
+                  decoration: InputDecoration(
+                    hintText: "Password",
+                    border: InputBorder.none,
+                  ),
                 ),
               ),
               SizedBox(
@@ -60,7 +82,8 @@ class LoginPage extends StatelessWidget {
                 ),
                 child: FlatButton(
                   onPressed: () {
-                    if(doLogin(loginController.text, passwordController.text)) {
+                    if (doLogin(
+                        loginController.text, passwordController.text)) {
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) => HomePage()));
                     } else {
