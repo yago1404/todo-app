@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:todo/screens/home_page/home_page.dart';
+import 'package:todo/service/auth_service.dart';
 
 class LoginPage extends StatelessWidget {
   final TextEditingController loginController = TextEditingController();
@@ -34,7 +35,7 @@ class LoginPage extends StatelessWidget {
               TextField(
                 controller: loginController,
                 decoration: InputDecoration(
-                  hintText: "E-mail",
+                  hintText: "login",
                   border: OutlineInputBorder(),
                 ),
               ),
@@ -59,8 +60,12 @@ class LoginPage extends StatelessWidget {
                 ),
                 child: FlatButton(
                   onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => HomePage()));
+                    if(doLogin(loginController.text, passwordController.text)) {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => HomePage()));
+                    } else {
+                      _showFailedLoginDialog(context);
+                    }
                   },
                   child: Text("Entrar"),
                   minWidth: MediaQuery.of(context).size.width * 0.85,
@@ -70,6 +75,34 @@ class LoginPage extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  _showFailedLoginDialog(context) {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Falha no login'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text('Algo deu errado'),
+                Text('Verifique login e senha'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text('Fechar'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }

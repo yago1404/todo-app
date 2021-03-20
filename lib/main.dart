@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:todo/screens/home_page/home_page.dart';
 import 'package:todo/screens/login/login_page.dart';
 
+// Login e senha padrão: admin, admin
+
 void main() {
   runApp(MyApp());
 }

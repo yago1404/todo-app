@@ -7,6 +7,10 @@ class User {
     return this._username;
   }
 
+  get password {
+    return this._password;
+  }
+
   set email(newEmail) {
     this._email = newEmail;
   }
