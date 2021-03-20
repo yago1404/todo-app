@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:todo/commons/consts.dart';
+import 'package:todo/models/user/user.dart';
 import 'package:todo/screens/home_page/home_page.dart';
+import 'package:todo/screens/register/register_page.dart';
 import 'package:todo/service/auth_service.dart';
 
 class LoginPage extends StatelessWidget {
@@ -19,11 +22,14 @@ class LoginPage extends StatelessWidget {
       child: Align(
         alignment: Alignment.topCenter,
         child: Container(
-          width: MediaQuery.of(context).size.width * 0.85,
+          width: MediaQuery
+              .of(context)
+              .size
+              .width * 0.85,
           child: Column(
             children: [
               Text(
-                "ToDo.",
+                "Faça login",
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 40,
@@ -34,7 +40,7 @@ class LoginPage extends StatelessWidget {
               ),
               Container(
                 padding:
-                    EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 5),
+                EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 5),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(5),
                   border: Border.all(
@@ -55,7 +61,7 @@ class LoginPage extends StatelessWidget {
               ),
               Container(
                 padding:
-                    EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 5),
+                EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 5),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(5),
                   border: Border.all(
@@ -84,6 +90,8 @@ class LoginPage extends StatelessWidget {
                   onPressed: () {
                     if (doLogin(
                         loginController.text, passwordController.text)) {
+                      currentUser =
+                          User(loginController.text, passwordController.text);
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) => HomePage()));
                     } else {
@@ -91,7 +99,31 @@ class LoginPage extends StatelessWidget {
                     }
                   },
                   child: Text("Entrar"),
-                  minWidth: MediaQuery.of(context).size.width * 0.85,
+                  minWidth: MediaQuery
+                      .of(context)
+                      .size
+                      .width * 0.85,
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.only(top: 20),
+                alignment: Alignment.centerLeft,
+                child: Row(
+                  children: [
+                    Text("Ainda não tem uma conta? "),
+                    GestureDetector(
+                      child: Text(
+                        "Cadastrar-se",
+                        style: TextStyle(color: Colors.blue),
+                      ),
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => RegisterPage()));
+                      },
+                    ),
+                  ],
                 ),
               ),
             ],
@@ -127,5 +159,12 @@ class LoginPage extends StatelessWidget {
         );
       },
     );
+  }
+
+  callbackRegister(context) {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => HomePage()));
   }
 }

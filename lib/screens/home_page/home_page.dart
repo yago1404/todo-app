@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo/commons/consts.dart';
 import 'package:todo/commons/database_test.dart';
 import 'package:todo/models/task/task.dart';
 import 'package:todo/screens/add_task/add_task.dart';
@@ -82,7 +83,7 @@ class _HomePageState extends State<HomePage> {
               ),
               SizedBox(width: 5),
               Text(
-                user.username,
+                currentUser.username,
                 style: TextStyle(fontSize: 17),
               ),
             ],
