@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:todo/models/task/task.dart';
 import 'package:todo/service/task_service.dart';
 
 class AddTaskScreen extends StatefulWidget {
