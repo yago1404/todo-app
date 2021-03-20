@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:todo/commons/database_test.dart';
 import 'package:todo/models/task/task.dart';
 import 'package:todo/screens/add_task/add_task.dart';
+import 'package:todo/screens/home_page/widgets/card_list_view.dart';
 import 'package:todo/screens/home_page/widgets/task_card.dart';
 import 'package:todo/service/task_service.dart';
 
@@ -87,16 +88,7 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
         ),
-        Container(
-          margin:
-              EdgeInsets.only(top: MediaQuery.of(context).size.height * .15),
-          child: ListView.builder(
-            itemCount: taskList.length,
-            itemBuilder: (BuildContext context, int index) {
-              return TaskCard(taskList[index], callbackFabIcon);
-            },
-          ),
-        ),
+        CardListView(taskList, callbackFabIcon),
       ],
     );
   }
