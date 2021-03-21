@@ -19,36 +19,6 @@ class _HomePageState extends State<HomePage> {
   Color _fabColor;
   bool _someTaskSelected = false;
 
-  callbackFabIcon(int taskId) {
-    var task = taskService.getTaskById(taskId);
-    if (task != false) {
-      setState(() {
-        this.taskList = taskService.getAllTasks;
-        var tempStatus = false;
-        for (Task i in taskList) {
-          tempStatus = tempStatus || i.status;
-        }
-        this._someTaskSelected = tempStatus;
-        setFabState();
-        setSelectedTasks();
-      });
-    }
-  }
-
-  deleteSelectedTasks() {
-    setState(() {
-      taskService.deleteTask(this.selectedTasks);
-      setSelectedTasks();
-      setFabState();
-      taskList = taskService.getAllTasks;
-    });
-  }
-
-  addTaskNavigator() {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => AddTaskScreen()));
-  }
-
   @override
   void initState() {
     super.initState();
@@ -121,5 +91,35 @@ class _HomePageState extends State<HomePage> {
       }
     }
     this.selectedTasks = tempList;
+  }
+
+  callbackFabIcon(int taskId) {
+    var task = taskService.getTaskById(taskId);
+    if (task != false) {
+      setState(() {
+        this.taskList = taskService.getAllTasks;
+        var tempStatus = false;
+        for (Task i in taskList) {
+          tempStatus = tempStatus || i.status;
+        }
+        this._someTaskSelected = tempStatus;
+        setFabState();
+        setSelectedTasks();
+      });
+    }
+  }
+
+  deleteSelectedTasks() {
+    setState(() {
+      taskService.deleteTask(this.selectedTasks);
+      setSelectedTasks();
+      setFabState();
+      taskList = taskService.getAllTasks;
+    });
+  }
+
+  addTaskNavigator() {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => AddTaskScreen()));
   }
 }
