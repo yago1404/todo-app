@@ -3,6 +3,7 @@ import 'package:todo/commons/consts.dart';
 import 'package:todo/models/task/task.dart';
 import 'package:todo/screens/add_task/add_task.dart';
 import 'package:todo/screens/home_page/widgets/card_list_view.dart';
+import 'package:todo/screens/login/login_page.dart';
 import 'package:todo/service/task_service.dart';
 
 class HomePage extends StatefulWidget {
@@ -39,22 +40,43 @@ class _HomePageState extends State<HomePage> {
   _body(context) {
     return Stack(
       children: [
-        SizedBox(
-          height: MediaQuery.of(context).size.height * .18,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(
-                Icons.check,
-                color: Colors.white,
-                size: 38,
-              ),
-              SizedBox(width: 5),
-              Text(
-                currentUser.username,
-                style: TextStyle(fontSize: 17),
-              ),
-            ],
+        Container(
+          margin: EdgeInsets.only(right: 30, left: 30),
+          child: SizedBox(
+            height: MediaQuery.of(context).size.height * .18,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.check,
+                        color: Colors.white,
+                        size: 38,
+                      ),
+                      SizedBox(width: 5),
+                      Text(
+                        currentUser.username,
+                        style: TextStyle(fontSize: 17),
+                      ),
+                    ],
+                  ),
+                ),
+                GestureDetector(
+                  child: Container(
+                    child: Align(
+                      child: Icon(Icons.logout),
+                    ),
+                  ),
+                  onTap: () {
+                    Navigator.of(context).pushAndRemoveUntil(
+                        MaterialPageRoute(builder: (context) => LoginPage()),
+                            (route) => false);
+                  },
+                ),
+              ],
+            ),
           ),
         ),
         CardListView(taskList, callbackFabIcon),
