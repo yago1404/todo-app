@@ -6,7 +6,7 @@ showFailedDialog(context, String message) {
     barrierDismissible: false, // user must tap button!
     builder: (BuildContext context) {
       return AlertDialog(
-        title: Text('Falha no cadastro'),
+        title: Text('Algo deu errado'),
         content: SingleChildScrollView(
           child: ListBody(
             children: <Widget>[

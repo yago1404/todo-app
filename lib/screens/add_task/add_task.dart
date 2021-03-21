@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo/screens/widget/alert_error.dart';
 import 'package:todo/service/task_service.dart';
 
 class AddTaskScreen extends StatefulWidget {
@@ -88,9 +89,14 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
             ),
             child: TextField(
               onEditingComplete: () {
-                taskService.addTask(this._titleController.text,
-                    this._descriptionController.text, false);
-                Navigator.pop(context);
+                if(_titleController == null && _descriptionController == null) {
+                  taskService.addTask(this._titleController.text,
+                      this._descriptionController.text, false);
+                  Navigator.pop(context);
+                }
+                else {
+                  showFailedDialog(context, "É preciso preencher todos os campos");
+                }
               },
               textInputAction: TextInputAction.done,
               controller: _descriptionController,
@@ -98,6 +104,27 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                 hintText: "Descrição",
                 border: InputBorder.none,
               ),
+            ),
+          ),
+          SizedBox(height: 15,),
+          Container(
+            decoration: BoxDecoration(
+              color: Colors.green,
+              borderRadius: BorderRadius.circular(5),
+            ),
+            child: FlatButton(
+              onPressed: () {
+                if(_titleController.text != "" && _descriptionController.text != "") {
+                  taskService.addTask(this._titleController.text,
+                      this._descriptionController.text, false);
+                  Navigator.pop(context);
+                }
+                else {
+                  showFailedDialog(context, "É preciso preencher todos os campos");
+                }
+              },
+              child: Text("Salvar"),
+              minWidth: MediaQuery.of(context).size.width * 0.85,
             ),
           ),
         ],
