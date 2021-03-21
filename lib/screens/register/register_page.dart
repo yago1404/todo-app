@@ -118,7 +118,7 @@ class RegisterPage extends StatelessWidget {
                         if (passwordController.text !=
                             confirmPasswordController.text) return;
                         if (registerUser(this.loginController.text,
-                            this.passwordController.text) ==
+                                this.passwordController.text) ==
                             "Nome de usuário já existe") {
                           _showFailedRegisterDialog(
                               context, "Nome de usuário já existe");
@@ -126,10 +126,10 @@ class RegisterPage extends StatelessWidget {
                           currentUser = User(
                               loginController.text, passwordController.text);
                           users.add(currentUser);
-                          Navigator.push(
-                              context,
+                          Navigator.of(context).pushAndRemoveUntil(
                               MaterialPageRoute(
-                                  builder: (context) => HomePage()));
+                                  builder: (context) => HomePage()),
+                              (route) => false);
                         }
                       },
                       child: Text("Cadastrar-se"),
