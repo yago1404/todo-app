@@ -22,10 +22,7 @@ class LoginPage extends StatelessWidget {
       child: Align(
         alignment: Alignment.topCenter,
         child: Container(
-          width: MediaQuery
-              .of(context)
-              .size
-              .width * 0.85,
+          width: MediaQuery.of(context).size.width * 0.85,
           child: Column(
             children: [
               Text(
@@ -40,7 +37,7 @@ class LoginPage extends StatelessWidget {
               ),
               Container(
                 padding:
-                EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 5),
+                    EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 5),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(5),
                   border: Border.all(
@@ -61,7 +58,7 @@ class LoginPage extends StatelessWidget {
               ),
               Container(
                 padding:
-                EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 5),
+                    EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 5),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(5),
                   border: Border.all(
@@ -92,17 +89,15 @@ class LoginPage extends StatelessWidget {
                         loginController.text, passwordController.text)) {
                       currentUser =
                           User(loginController.text, passwordController.text);
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => HomePage()));
+                      Navigator.of(context).pushAndRemoveUntil(
+                          MaterialPageRoute(builder: (context) => HomePage()),
+                          (route) => false);
                     } else {
                       _showFailedLoginDialog(context);
                     }
                   },
                   child: Text("Entrar"),
-                  minWidth: MediaQuery
-                      .of(context)
-                      .size
-                      .width * 0.85,
+                  minWidth: MediaQuery.of(context).size.width * 0.85,
                 ),
               ),
               Container(
@@ -163,8 +158,6 @@ class LoginPage extends StatelessWidget {
 
   callbackRegister(context) {
     Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => HomePage()));
+        context, MaterialPageRoute(builder: (context) => HomePage()));
   }
 }
