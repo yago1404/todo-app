@@ -51,36 +51,42 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
       ),
       child: Column(
         children: [
-          TextField(
-            onEditingComplete: () {
-              FocusScope.of(context).nextFocus();
-            },
-            textInputAction: TextInputAction.next,
-            controller: _titleController,
-            decoration: InputDecoration(
-              hintText: "Título",
-              contentPadding: EdgeInsets.only(left: 15),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
+          Container(
+            padding:
+            EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 5),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(5),
+              border: Border.all(
+                color: Colors.grey,
+                width: 1,
+              ),
+            ),
+            child: TextField(
+              controller: _titleController,
+              decoration: InputDecoration(
+                hintText: "Título",
+                border: InputBorder.none,
               ),
             ),
           ),
           SizedBox(
             height: 20,
           ),
-          TextField(
-            onEditingComplete: () {
-              taskService.addTask(this._titleController.text,
-                  this._descriptionController.text, false);
-              Navigator.pop(context);
-            },
-            textInputAction: TextInputAction.done,
-            controller: _descriptionController,
-            decoration: InputDecoration(
-              hintText: "descrição",
-              contentPadding: EdgeInsets.only(left: 15),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
+          Container(
+            padding:
+            EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 5),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(5),
+              border: Border.all(
+                color: Colors.grey,
+                width: 1,
+              ),
+            ),
+            child: TextField(
+              controller: _descriptionController,
+              decoration: InputDecoration(
+                hintText: "Descrição",
+                border: InputBorder.none,
               ),
             ),
           ),
