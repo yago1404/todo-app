@@ -3,6 +3,7 @@ import 'package:todo/commons/consts.dart';
 import 'package:todo/commons/database_test.dart';
 import 'package:todo/models/user/user.dart';
 import 'package:todo/screens/home_page/home_page.dart';
+import 'package:todo/screens/widget/alert_error.dart';
 import 'package:todo/service/auth_service.dart';
 
 class RegisterPage extends StatelessWidget {
@@ -116,11 +117,15 @@ class RegisterPage extends StatelessWidget {
                     child: FlatButton(
                       onPressed: () {
                         if (passwordController.text !=
-                            confirmPasswordController.text) return;
+                            confirmPasswordController.text) {
+                          showFailedDialog(
+                              context, "Senha não compatível");
+                          return;
+                        }
                         if (registerUser(this.loginController.text,
                                 this.passwordController.text) ==
                             "Nome de usuário já existe") {
-                          _showFailedRegisterDialog(
+                          showFailedDialog(
                               context, "Nome de usuário já existe");
                         } else {
                           currentUser = User(
@@ -158,34 +163,6 @@ class RegisterPage extends StatelessWidget {
           ),
         )
       ],
-    );
-  }
-
-  _showFailedRegisterDialog(context, String message) {
-    return showDialog<void>(
-      context: context,
-      barrierDismissible: false, // user must tap button!
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('Falha no cadastro'),
-          content: SingleChildScrollView(
-            child: ListBody(
-              children: <Widget>[
-                Text('Algo deu errado'),
-                Text(message),
-              ],
-            ),
-          ),
-          actions: <Widget>[
-            TextButton(
-              child: Text('Fechar'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
     );
   }
 }
