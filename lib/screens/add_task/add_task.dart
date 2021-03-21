@@ -62,6 +62,10 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
               ),
             ),
             child: TextField(
+              textInputAction: TextInputAction.next,
+              onEditingComplete: () {
+                FocusScope.of(context).nextFocus();
+              },
               controller: _titleController,
               decoration: InputDecoration(
                 hintText: "Título",
@@ -83,6 +87,12 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
               ),
             ),
             child: TextField(
+              onEditingComplete: () {
+                taskService.addTask(this._titleController.text,
+                    this._descriptionController.text, false);
+                Navigator.pop(context);
+              },
+              textInputAction: TextInputAction.done,
               controller: _descriptionController,
               decoration: InputDecoration(
                 hintText: "Descrição",
