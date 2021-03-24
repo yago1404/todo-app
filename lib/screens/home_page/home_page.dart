@@ -98,8 +98,8 @@ class _HomePageState extends State<HomePage> {
             Icons.delete,
             color: Colors.white,
           )
-        : Icon(Icons.add);
-    _fabColor = _someTaskSelected ? Colors.red : Colors.white;
+        : Icon(Icons.add, color: Colors.white,);
+    _fabColor = _someTaskSelected ? Colors.red : Colors.green;
     _fabFunction = _someTaskSelected ? deleteSelectedTasks : addTaskNavigator;
   }
 
