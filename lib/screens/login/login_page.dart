@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'package:todo/commons/consts.dart';
 import 'package:todo/models/user/user.dart';
@@ -40,7 +42,7 @@ class LoginPage extends StatelessWidget {
                   ),
                   Container(
                     padding:
-                    EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 5),
+                        EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 5),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(5),
                       border: Border.all(
@@ -48,6 +50,7 @@ class LoginPage extends StatelessWidget {
                         width: 1,
                       ),
                     ),
+                    width: MediaQuery.of(context).size.width > 500? 500 : MediaQuery.of(context).size.width,
                     child: TextField(
                       controller: loginController,
                       decoration: InputDecoration(
@@ -61,7 +64,7 @@ class LoginPage extends StatelessWidget {
                   ),
                   Container(
                     padding:
-                    EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 5),
+                        EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 5),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(5),
                       border: Border.all(
@@ -69,6 +72,7 @@ class LoginPage extends StatelessWidget {
                         width: 1,
                       ),
                     ),
+                    width: MediaQuery.of(context).size.width > 500? 500 : MediaQuery.of(context).size.width,
                     child: TextField(
                       controller: passwordController,
                       obscureText: true,
@@ -83,29 +87,37 @@ class LoginPage extends StatelessWidget {
                   ),
                   Container(
                     decoration: BoxDecoration(
-                      color: Colors.green,
                       borderRadius: BorderRadius.circular(5),
                     ),
-                    child: FlatButton(
+                    width: MediaQuery.of(context).size.width > 500? 500 : MediaQuery.of(context).size.width,
+                    height: 40,
+                    child: TextButton(
                       onPressed: () {
                         if (doLogin(
                             loginController.text, passwordController.text)) {
-                          currentUser =
-                              User(loginController.text, passwordController.text);
+                          currentUser = User(
+                              loginController.text, passwordController.text);
                           Navigator.of(context).pushAndRemoveUntil(
-                              MaterialPageRoute(builder: (context) => HomePage()),
-                                  (route) => false);
+                              MaterialPageRoute(
+                                  builder: (context) => HomePage()),
+                              (route) => false);
                         } else {
-                          showFailedDialog(context, "Login ou senha incorretos");
+                          showFailedDialog(
+                              context, "Login ou senha incorretos");
                         }
                       },
-                      child: Text("Entrar"),
-                      minWidth: MediaQuery.of(context).size.width * 0.85,
+                      child: Text(
+                        "Entrar",
+                      ),
+                      style: TextButton.styleFrom(
+                        backgroundColor: Colors.green,
+                        primary: Colors.white
+                      ),
                     ),
                   ),
                   Container(
                     margin: EdgeInsets.only(top: 20),
-                    alignment: Alignment.centerLeft,
+                    width: MediaQuery.of(context).size.width > 500? 500 : MediaQuery.of(context).size.width,
                     child: Row(
                       children: [
                         Text("Ainda não tem uma conta? "),
