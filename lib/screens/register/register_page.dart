@@ -11,9 +11,14 @@ class RegisterPage extends StatelessWidget {
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController confirmPasswordController =
       TextEditingController();
+  double screenWidthAdapter;
 
   @override
   Widget build(BuildContext context) {
+    this.screenWidthAdapter = MediaQuery.of(context).size.width > 500
+        ? 500
+        : MediaQuery.of(context).size.width;
+
     return Scaffold(
       body: _body(context),
       appBar: AppBar(
@@ -31,9 +36,7 @@ class RegisterPage extends StatelessWidget {
           child: Align(
             alignment: Alignment.topCenter,
             child: Container(
-              width: MediaQuery.of(context).size.width > 500
-                  ? 500
-                  : MediaQuery.of(context).size.width,
+              width: MediaQuery.of(context).size.width * 0.85,
               child: Column(
                 children: [
                   Text(
@@ -47,6 +50,7 @@ class RegisterPage extends StatelessWidget {
                     height: 40,
                   ),
                   Container(
+                    width: screenWidthAdapter,
                     padding:
                         EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 5),
                     decoration: BoxDecoration(
@@ -68,6 +72,7 @@ class RegisterPage extends StatelessWidget {
                     height: 15,
                   ),
                   Container(
+                    width: screenWidthAdapter,
                     padding:
                         EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 5),
                     decoration: BoxDecoration(
@@ -90,6 +95,7 @@ class RegisterPage extends StatelessWidget {
                     height: 15,
                   ),
                   Container(
+                    width: screenWidthAdapter,
                     padding:
                         EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 5),
                     decoration: BoxDecoration(
@@ -116,9 +122,7 @@ class RegisterPage extends StatelessWidget {
                       color: Colors.green,
                       borderRadius: BorderRadius.circular(5),
                     ),
-                    width: MediaQuery.of(context).size.width > 500
-                        ? 500
-                        : MediaQuery.of(context).size.width,
+                    width: screenWidthAdapter,
                     height: 40,
                     child: TextButton(
                       onPressed: () {
@@ -160,9 +164,7 @@ class RegisterPage extends StatelessWidget {
                       color: Colors.red,
                       borderRadius: BorderRadius.circular(5),
                     ),
-                    width: MediaQuery.of(context).size.width > 500
-                        ? 500
-                        : MediaQuery.of(context).size.width,
+                    width: screenWidthAdapter,
                     height: 40,
                     child: TextButton(
                       onPressed: () {

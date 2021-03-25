@@ -11,9 +11,14 @@ import 'package:todo/service/auth_service.dart';
 class LoginPage extends StatelessWidget {
   final TextEditingController loginController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  double screenWidthAdapter;
 
   @override
   Widget build(BuildContext context) {
+    this.screenWidthAdapter = MediaQuery.of(context).size.width > 500
+        ? 500
+        : MediaQuery.of(context).size.width;
+
     return Scaffold(
       body: _body(context),
     );
@@ -50,7 +55,7 @@ class LoginPage extends StatelessWidget {
                         width: 1,
                       ),
                     ),
-                    width: MediaQuery.of(context).size.width > 500? 500 : MediaQuery.of(context).size.width,
+                    width: screenWidthAdapter,
                     child: TextField(
                       controller: loginController,
                       decoration: InputDecoration(
@@ -72,7 +77,7 @@ class LoginPage extends StatelessWidget {
                         width: 1,
                       ),
                     ),
-                    width: MediaQuery.of(context).size.width > 500? 500 : MediaQuery.of(context).size.width,
+                    width: screenWidthAdapter,
                     child: TextField(
                       controller: passwordController,
                       obscureText: true,
@@ -89,7 +94,7 @@ class LoginPage extends StatelessWidget {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(5),
                     ),
-                    width: MediaQuery.of(context).size.width > 500? 500 : MediaQuery.of(context).size.width,
+                    width: screenWidthAdapter,
                     height: 40,
                     child: TextButton(
                       onPressed: () {
@@ -110,14 +115,12 @@ class LoginPage extends StatelessWidget {
                         "Entrar",
                       ),
                       style: TextButton.styleFrom(
-                        backgroundColor: Colors.green,
-                        primary: Colors.white
-                      ),
+                          backgroundColor: Colors.green, primary: Colors.white),
                     ),
                   ),
                   Container(
                     margin: EdgeInsets.only(top: 20),
-                    width: MediaQuery.of(context).size.width > 500? 500 : MediaQuery.of(context).size.width,
+                    width: screenWidthAdapter,
                     child: Row(
                       children: [
                         Text("Ainda não tem uma conta? "),
