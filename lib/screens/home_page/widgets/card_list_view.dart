@@ -3,8 +3,8 @@ import 'package:todo/models/task/task.dart';
 import 'package:todo/screens/home_page/widgets/task_card.dart';
 
 class CardListView extends StatefulWidget {
-  List<Task> taskList;
-  var callbackFabIcon;
+  final List<Task> taskList;
+  final Function callbackFabIcon;
 
   CardListView(this.taskList, this.callbackFabIcon);
 

@@ -31,7 +31,9 @@ class RegisterPage extends StatelessWidget {
           child: Align(
             alignment: Alignment.topCenter,
             child: Container(
-              width: MediaQuery.of(context).size.width * 0.85,
+              width: MediaQuery.of(context).size.width > 500
+                  ? 500
+                  : MediaQuery.of(context).size.width,
               child: Column(
                 children: [
                   Text(
@@ -114,12 +116,21 @@ class RegisterPage extends StatelessWidget {
                       color: Colors.green,
                       borderRadius: BorderRadius.circular(5),
                     ),
-                    child: FlatButton(
+                    width: MediaQuery.of(context).size.width > 500
+                        ? 500
+                        : MediaQuery.of(context).size.width,
+                    height: 40,
+                    child: TextButton(
                       onPressed: () {
+                        if (passwordController.text == "" ||
+                            confirmPasswordController.text == "" ||
+                            loginController.text == "") {
+                          showFailedDialog(context, "Preencha todos os campos");
+                          return;
+                        }
                         if (passwordController.text !=
                             confirmPasswordController.text) {
-                          showFailedDialog(
-                              context, "Senha não compatível");
+                          showFailedDialog(context, "Senha não compatível");
                           return;
                         }
                         if (registerUser(this.loginController.text,
@@ -138,7 +149,7 @@ class RegisterPage extends StatelessWidget {
                         }
                       },
                       child: Text("Cadastrar-se"),
-                      minWidth: MediaQuery.of(context).size.width * 0.85,
+                      style: TextButton.styleFrom(primary: Colors.white),
                     ),
                   ),
                   SizedBox(
@@ -149,12 +160,16 @@ class RegisterPage extends StatelessWidget {
                       color: Colors.red,
                       borderRadius: BorderRadius.circular(5),
                     ),
-                    child: FlatButton(
+                    width: MediaQuery.of(context).size.width > 500
+                        ? 500
+                        : MediaQuery.of(context).size.width,
+                    height: 40,
+                    child: TextButton(
                       onPressed: () {
                         Navigator.pop(context);
                       },
                       child: Text("Cancelar"),
-                      minWidth: MediaQuery.of(context).size.width * 0.85,
+                      style: TextButton.styleFrom(primary: Colors.white),
                     ),
                   ),
                 ],
