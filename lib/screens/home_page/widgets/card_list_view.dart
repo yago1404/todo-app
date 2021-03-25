@@ -18,11 +18,14 @@ class _CardListViewState extends State<CardListView> {
     return Container(
       margin:
       EdgeInsets.only(top: MediaQuery.of(context).size.height * .15),
-      child: ListView.builder(
-        itemCount: widget.taskList.length,
-        itemBuilder: (BuildContext context, int index) {
-          return TaskCard(widget.taskList[index], widget.callbackFabIcon);
-        },
+      child: Scrollbar(
+        isAlwaysShown: true,
+        child: ListView.builder(
+          itemCount: widget.taskList.length,
+          itemBuilder: (BuildContext context, int index) {
+            return TaskCard(widget.taskList[index], widget.callbackFabIcon);
+          },
+        ),
       ),
     );
   }

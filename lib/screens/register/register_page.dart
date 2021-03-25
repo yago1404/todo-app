@@ -168,7 +168,7 @@ class RegisterPage extends StatelessWidget {
                     height: 40,
                     child: TextButton(
                       onPressed: () {
-                        Navigator.pop(context);
+                        Navigator.pushNamed(context, '/');
                       },
                       child: Text("Cancelar"),
                       style: TextButton.styleFrom(primary: Colors.white),

@@ -70,9 +70,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   onTap: () {
-                    Navigator.of(context).pushAndRemoveUntil(
-                        MaterialPageRoute(builder: (context) => LoginPage()),
-                            (route) => false);
+                    Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
                   },
                 ),
               ],
@@ -141,7 +139,6 @@ class _HomePageState extends State<HomePage> {
   }
 
   addTaskNavigator() {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => AddTaskScreen()));
+    Navigator.pushNamed(context, '/add_task');
   }
 }
