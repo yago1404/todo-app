@@ -4,6 +4,7 @@ import 'package:todo/models/task/task.dart';
 import 'package:todo/screens/add_task/add_task.dart';
 import 'package:todo/screens/home_page/widgets/card_list_view.dart';
 import 'package:todo/screens/login/login_page.dart';
+import 'package:todo/screens/widget/confirm_message.dart';
 import 'package:todo/service/task_service.dart';
 
 class HomePage extends StatefulWidget {
@@ -70,7 +71,9 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   onTap: () {
-                    Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
+                    currentUser = null;
+                    Navigator.pushNamedAndRemoveUntil(
+                        context, '/', (route) => false);
                   },
                 ),
               ],
@@ -96,7 +99,10 @@ class _HomePageState extends State<HomePage> {
             Icons.delete,
             color: Colors.white,
           )
-        : Icon(Icons.add, color: Colors.white,);
+        : Icon(
+            Icons.add,
+            color: Colors.white,
+          );
     _fabColor = _someTaskSelected ? Colors.red : Colors.green;
     _fabFunction = _someTaskSelected ? deleteSelectedTasks : addTaskNavigator;
   }
@@ -130,15 +136,19 @@ class _HomePageState extends State<HomePage> {
   }
 
   deleteSelectedTasks() {
+    confirmDialog(context: context, message: "Deseja apagar a menssagem?", title: "Apagar task", confirmFunction: deleteTasks);
+  }
+
+  addTaskNavigator() {
+    Navigator.pushNamed(context, '/add_task');
+  }
+
+  deleteTasks() {
     setState(() {
       taskService.deleteTask(this.selectedTasks);
       setSelectedTasks();
       setFabState();
       taskList = taskService.getAllTasks;
     });
-  }
-
-  addTaskNavigator() {
-    Navigator.pushNamed(context, '/add_task');
   }
 }

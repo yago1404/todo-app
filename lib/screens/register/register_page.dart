@@ -129,18 +129,18 @@ class RegisterPage extends StatelessWidget {
                         if (passwordController.text == "" ||
                             confirmPasswordController.text == "" ||
                             loginController.text == "") {
-                          showFailedDialog(context, "Preencha todos os campos");
+                          failedDialog(context, "Preencha todos os campos");
                           return;
                         }
                         if (passwordController.text !=
                             confirmPasswordController.text) {
-                          showFailedDialog(context, "Senha não compatível");
+                          failedDialog(context, "Senha não compatível");
                           return;
                         }
                         if (registerUser(this.loginController.text,
                                 this.passwordController.text) ==
                             "Nome de usuário já existe") {
-                          showFailedDialog(
+                          failedDialog(
                               context, "Nome de usuário já existe");
                         } else {
                           currentUser = User(

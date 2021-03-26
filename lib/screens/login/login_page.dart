@@ -3,8 +3,6 @@ import 'package:universal_html/html.dart' as html;
 import 'package:flutter/material.dart';
 import 'package:todo/commons/consts.dart';
 import 'package:todo/models/user/user.dart';
-import 'package:todo/screens/home_page/home_page.dart';
-import 'package:todo/screens/register/register_page.dart';
 import 'package:todo/screens/widget/alert_error.dart';
 import 'package:todo/service/auth_service.dart';
 
@@ -104,7 +102,7 @@ class LoginPage extends StatelessWidget {
                               loginController.text, passwordController.text);
                           Navigator.pushNamedAndRemoveUntil(context, '/home_page', (route) => false);
                         } else {
-                          showFailedDialog(
+                          failedDialog(
                               context, "Login ou senha incorretos");
                         }
                       },

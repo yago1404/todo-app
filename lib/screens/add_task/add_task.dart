@@ -101,7 +101,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                         this._descriptionController.text, false);
                     Navigator.pushNamed(context, '/home_page');
                   } else {
-                    showFailedDialog(
+                    failedDialog(
                         context, "É preciso preencher todos os campos");
                   }
                 },
@@ -131,7 +131,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                         this._descriptionController.text, false);
                     Navigator.pushNamed(context, '/home_page');
                   } else {
-                    showFailedDialog(
+                    failedDialog(
                         context, "É preciso preencher todos os campos");
                   }
                 },

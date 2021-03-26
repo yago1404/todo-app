@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-showFailedDialog(context, String message) {
+failedDialog(context, String message) {
   return showDialog<void>(
     context: context,
     barrierDismissible: false, // user must tap button!
