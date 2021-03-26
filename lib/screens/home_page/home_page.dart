@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:todo/commons/consts.dart';
 import 'package:todo/models/task/task.dart';
-import 'package:todo/screens/add_task/add_task.dart';
 import 'package:todo/screens/home_page/widgets/card_list_view.dart';
-import 'package:todo/screens/login/login_page.dart';
 import 'package:todo/screens/widget/confirm_message.dart';
 import 'package:todo/service/task_service.dart';
 
