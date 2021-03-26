@@ -23,7 +23,7 @@ class RegisterPage extends StatelessWidget {
       body: _body(context),
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: Color(0xFF2E2E2E),
+        backgroundColor: Colors.transparent,
       ),
     );
   }
