@@ -100,7 +100,7 @@ class LoginPage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(5),
                     ),
                     width: screenWidthAdapter,
-                    height: 40,
+                    height: 50,
                     child: TextButton(
                       onPressed: () {
                         _login(context);

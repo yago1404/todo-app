@@ -17,8 +17,7 @@ class _CardListViewState extends State<CardListView> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin:
-      EdgeInsets.only(top: MediaQuery.of(context).size.height * .15),
+      margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * .15),
       child: Scrollbar(
         isAlwaysShown: kIsWeb,
         child: ListView.builder(
