@@ -66,6 +66,10 @@ class RegisterPage extends StatelessWidget {
                         hintText: "login",
                         border: InputBorder.none,
                       ),
+                      onEditingComplete: () {
+                        FocusScope.of(context).nextFocus();
+                      },
+                      textInputAction: TextInputAction.next,
                     ),
                   ),
                   SizedBox(
@@ -89,6 +93,10 @@ class RegisterPage extends StatelessWidget {
                         hintText: "Senha",
                         border: InputBorder.none,
                       ),
+                      onEditingComplete: () {
+                        FocusScope.of(context).nextFocus();
+                      },
+                      textInputAction: TextInputAction.next,
                     ),
                   ),
                   SizedBox(
@@ -112,6 +120,9 @@ class RegisterPage extends StatelessWidget {
                         hintText: "Repita a senha",
                         border: InputBorder.none,
                       ),
+                      onEditingComplete: () {
+                        _register(context);
+                      },
                     ),
                   ),
                   SizedBox(
@@ -126,28 +137,7 @@ class RegisterPage extends StatelessWidget {
                     height: 40,
                     child: TextButton(
                       onPressed: () {
-                        if (passwordController.text == "" ||
-                            confirmPasswordController.text == "" ||
-                            loginController.text == "") {
-                          failedDialog(context, "Preencha todos os campos");
-                          return;
-                        }
-                        if (passwordController.text !=
-                            confirmPasswordController.text) {
-                          failedDialog(context, "Senha não compatível");
-                          return;
-                        }
-                        if (registerUser(this.loginController.text,
-                                this.passwordController.text) ==
-                            "Nome de usuário já existe") {
-                          failedDialog(
-                              context, "Nome de usuário já existe");
-                        } else {
-                          currentUser = User(
-                              loginController.text, passwordController.text);
-                          users.add(currentUser);
-                          Navigator.pushNamedAndRemoveUntil(context, 'home_page', (rout) => false);
-                        }
+                        _register(context);
                       },
                       child: Text("Cadastrar-se"),
                       style: TextButton.styleFrom(primary: Colors.white),
@@ -178,5 +168,30 @@ class RegisterPage extends StatelessWidget {
         )
       ],
     );
+  }
+
+  _register(context) {
+    if (passwordController.text == "" ||
+        confirmPasswordController.text == "" ||
+        loginController.text == "") {
+      failedDialog(context, "Preencha todos os campos");
+      return;
+    }
+    if (passwordController.text !=
+        confirmPasswordController.text) {
+      failedDialog(context, "Senha não compatível");
+      return;
+    }
+    if (registerUser(this.loginController.text,
+        this.passwordController.text) ==
+        "Nome de usuário já existe") {
+      failedDialog(
+          context, "Nome de usuário já existe");
+    } else {
+      currentUser = User(
+          loginController.text, passwordController.text);
+      users.add(currentUser);
+      Navigator.pushNamedAndRemoveUntil(context, 'home_page', (rout) => false);
+    }
   }
 }

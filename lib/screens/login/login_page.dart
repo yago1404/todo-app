@@ -60,6 +60,10 @@ class LoginPage extends StatelessWidget {
                         hintText: "login",
                         border: InputBorder.none,
                       ),
+                      onEditingComplete: () {
+                        FocusScope.of(context).nextFocus();
+                      },
+                      textInputAction: TextInputAction.next,
                     ),
                   ),
                   SizedBox(
@@ -83,6 +87,9 @@ class LoginPage extends StatelessWidget {
                         hintText: "Password",
                         border: InputBorder.none,
                       ),
+                      onEditingComplete: () {
+                        _login(context);
+                      },
                     ),
                   ),
                   SizedBox(
@@ -96,15 +103,7 @@ class LoginPage extends StatelessWidget {
                     height: 40,
                     child: TextButton(
                       onPressed: () {
-                        if (doLogin(
-                            loginController.text, passwordController.text)) {
-                          currentUser = User(
-                              loginController.text, passwordController.text);
-                          Navigator.pushReplacementNamed(context, 'home_page');
-                        } else {
-                          failedDialog(
-                              context, "Login ou senha incorretos");
-                        }
+                        _login(context);
                       },
                       child: Text(
                         "Entrar",
@@ -142,5 +141,14 @@ class LoginPage extends StatelessWidget {
 
   callbackRegister(context) {
     Navigator.pushNamed(context, 'home_page');
+  }
+
+  _login(context) {
+    if (doLogin(loginController.text, passwordController.text)) {
+      currentUser = User(loginController.text, passwordController.text);
+      Navigator.pushReplacementNamed(context, 'home_page');
+    } else {
+      failedDialog(context, "Login ou senha incorretos");
+    }
   }
 }
