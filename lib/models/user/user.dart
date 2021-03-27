@@ -1,7 +1,7 @@
 class User {
   String _username;
   String _password;
-  String _email;
+  String? _email;
 
   get username {
     return this._username;

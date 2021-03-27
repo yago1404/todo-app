@@ -9,7 +9,7 @@ import 'package:todo/service/auth_service.dart';
 class LoginPage extends StatelessWidget {
   final TextEditingController loginController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  double screenWidthAdapter;
+  double? screenWidthAdapter;
 
   @override
   Widget build(BuildContext context) {

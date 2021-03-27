@@ -11,7 +11,7 @@ class RegisterPage extends StatelessWidget {
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController confirmPasswordController =
       TextEditingController();
-  double screenWidthAdapter;
+  double? screenWidthAdapter;
 
   @override
   Widget build(BuildContext context) {

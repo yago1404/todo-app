@@ -2,10 +2,10 @@ class Task {
   String _title;
   String _description;
   bool _done;
-  int _id;
+  int? _id;
 
   // ignore: unnecessary_getters_setters
-  get title {
+  String get title {
     return _title;
   }
 
@@ -13,7 +13,7 @@ class Task {
     return this._description;
   }
 
-  get status {
+  bool get status {
     return this._done;
   }
 

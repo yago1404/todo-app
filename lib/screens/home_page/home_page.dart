@@ -12,11 +12,11 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   TaskService taskService = TaskService();
-  List<Task> taskList;
-  List<Task> selectedTasks;
-  Function _fabFunction;
-  Icon _fabIcon;
-  Color _fabColor;
+  List<Task>? taskList;
+  late List<Task> selectedTasks;
+  Function? _fabFunction;
+  Icon? _fabIcon;
+  Color? _fabColor;
   bool _someTaskSelected = false;
 
   @override
@@ -40,7 +40,9 @@ class _HomePageState extends State<HomePage> {
     return Align(
       alignment: Alignment.topCenter,
       child: Container(
-        width: MediaQuery.of(context).size.width > 700 ? 700 : MediaQuery.of(context).size.width,
+        width: MediaQuery.of(context).size.width > 700
+            ? 700
+            : MediaQuery.of(context).size.width,
         child: Stack(
           children: [
             Container(
@@ -60,7 +62,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                           SizedBox(width: 5),
                           Text(
-                            currentUser.username,
+                            currentUser!.username,
                             style: TextStyle(fontSize: 17),
                           ),
                         ],
@@ -91,7 +93,7 @@ class _HomePageState extends State<HomePage> {
 
   _fab(context) {
     return FloatingActionButton(
-      onPressed: _fabFunction,
+      onPressed: _fabFunction as void Function()?,
       child: _fabIcon,
       backgroundColor: _fabColor,
     );
@@ -114,7 +116,7 @@ class _HomePageState extends State<HomePage> {
   void setSelectedTasks() {
     this._someTaskSelected = false;
     List<Task> tempList = [];
-    for (var i in taskList) {
+    for (var i in taskList!) {
       if (i.status) {
         tempList.add(i);
         this._someTaskSelected = true;
@@ -129,7 +131,7 @@ class _HomePageState extends State<HomePage> {
       setState(() {
         this.taskList = taskService.getAllTasks;
         var tempStatus = false;
-        for (Task i in taskList) {
+        for (Task i in taskList!) {
           tempStatus = tempStatus || i.status;
         }
         this._someTaskSelected = tempStatus;
@@ -140,7 +142,11 @@ class _HomePageState extends State<HomePage> {
   }
 
   deleteSelectedTasks() {
-    confirmDialog(context: context, message: "Deseja apagar a menssagem?", title: "Apagar task", confirmFunction: deleteTasks);
+    confirmDialog(
+        context: context,
+        message: "Deseja apagar a menssagem?",
+        title: "Apagar task",
+        confirmFunction: deleteTasks);
   }
 
   addTaskNavigator() {

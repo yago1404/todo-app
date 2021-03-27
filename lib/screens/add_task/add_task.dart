@@ -9,9 +9,9 @@ class AddTaskScreen extends StatefulWidget {
 
 class _AddTaskScreenState extends State<AddTaskScreen> {
   TaskService taskService = TaskService();
-  TextEditingController _titleController;
-  TextEditingController _descriptionController;
-  double _screenWidthAdapter;
+  TextEditingController? _titleController;
+  TextEditingController? _descriptionController;
+  double? _screenWidthAdapter;
 
   @override
   void initState() {
@@ -22,8 +22,8 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
 
   @override
   void dispose() {
-    _titleController.dispose();
-    _descriptionController.dispose();
+    _titleController!.dispose();
+    _descriptionController!.dispose();
     super.dispose();
   }
 
@@ -97,8 +97,8 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                 onEditingComplete: () {
                   if (_titleController == null &&
                       _descriptionController == null) {
-                    taskService.addTask(this._titleController.text,
-                        this._descriptionController.text, false);
+                    taskService.addTask(this._titleController!.text,
+                        this._descriptionController!.text, false);
                     Navigator.pushNamed(context, 'home_page');
                   } else {
                     failedDialog(
@@ -125,10 +125,10 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
               height: 40,
               child: TextButton(
                 onPressed: () {
-                  if (_titleController.text != "" &&
-                      _descriptionController.text != "") {
-                    taskService.addTask(this._titleController.text,
-                        this._descriptionController.text, false);
+                  if (_titleController!.text != "" &&
+                      _descriptionController!.text != "") {
+                    taskService.addTask(this._titleController!.text,
+                        this._descriptionController!.text, false);
                     Navigator.pushNamed(context, 'home_page');
                   } else {
                     failedDialog(

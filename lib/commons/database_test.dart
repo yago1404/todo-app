@@ -41,4 +41,4 @@ List<Task> tasks = [
 ];
 
 final User user = User('Yago', 'yago');
-List<User> users = [User('admin', 'admin')];
+List<User?> users = [User('admin', 'admin')];

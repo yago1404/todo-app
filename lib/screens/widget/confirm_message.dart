@@ -1,22 +1,26 @@
 import 'package:flutter/material.dart';
 
-confirmDialog({BuildContext context, String message, String title, Function confirmFunction}) {
+confirmDialog(
+    {required BuildContext context,
+    String? message,
+    String? title,
+    Function? confirmFunction}) {
   return showDialog(
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Text(title),
+          title: Text(title!),
           content: SingleChildScrollView(
             child: ListBody(
               children: [
-                Text(message),
+                Text(message!),
               ],
             ),
           ),
           actions: [
             TextButton(
               onPressed: () {
-                confirmFunction();
+                confirmFunction!();
                 Navigator.pop(context);
               },
               child: Text("Confirmar"),

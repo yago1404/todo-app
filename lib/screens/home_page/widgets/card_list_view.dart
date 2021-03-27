@@ -3,7 +3,7 @@ import 'package:todo/models/task/task.dart';
 import 'package:todo/screens/home_page/widgets/task_card.dart';
 
 class CardListView extends StatefulWidget {
-  final List<Task> taskList;
+  final List<Task>? taskList;
   final Function callbackFabIcon;
 
   CardListView(this.taskList, this.callbackFabIcon);
@@ -21,9 +21,9 @@ class _CardListViewState extends State<CardListView> {
       child: Scrollbar(
         isAlwaysShown: true,
         child: ListView.builder(
-          itemCount: widget.taskList.length,
+          itemCount: widget.taskList!.length,
           itemBuilder: (BuildContext context, int index) {
-            return TaskCard(widget.taskList[index], widget.callbackFabIcon);
+            return TaskCard(widget.taskList![index], widget.callbackFabIcon);
           },
         ),
       ),
