@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:todo/models/task/task.dart';
 import 'package:todo/screens/home_page/widgets/task_card.dart';
@@ -19,7 +20,7 @@ class _CardListViewState extends State<CardListView> {
       margin:
       EdgeInsets.only(top: MediaQuery.of(context).size.height * .15),
       child: Scrollbar(
-        isAlwaysShown: true,
+        isAlwaysShown: kIsWeb,
         child: ListView.builder(
           itemCount: widget.taskList!.length,
           itemBuilder: (BuildContext context, int index) {

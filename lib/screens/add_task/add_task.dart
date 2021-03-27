@@ -95,8 +95,8 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
               width: _screenWidthAdapter,
               child: TextField(
                 onEditingComplete: () {
-                  if (_titleController == null &&
-                      _descriptionController == null) {
+                  if (_titleController != null &&
+                      _descriptionController != null) {
                     taskService.addTask(this._titleController!.text,
                         this._descriptionController!.text, false);
                     Navigator.pushNamed(context, 'home_page');

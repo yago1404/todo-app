@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:todo/commons/consts.dart';
+import 'package:todo/commons/database_test.dart';
 import 'package:todo/models/task/task.dart';
 import 'package:todo/screens/home_page/widgets/card_list_view.dart';
 import 'package:todo/screens/widget/confirm_message.dart';
@@ -21,6 +24,9 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
+    Timer.run(() {
+      if(currentUser == null) Navigator.pushNamedAndRemoveUntil(context, '', (route) => false);
+    });
     super.initState();
     this._someTaskSelected = false;
     this.selectedTasks = [];
@@ -62,7 +68,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                           SizedBox(width: 5),
                           Text(
-                            currentUser!.username,
+                            currentUser == null ? 'no username' : currentUser!.username,
                             style: TextStyle(fontSize: 17),
                           ),
                         ],
