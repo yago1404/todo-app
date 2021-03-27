@@ -20,12 +20,12 @@ class MyApp extends StatelessWidget {
         brightness: Brightness.dark,
       ),
       themeMode: ThemeMode.dark,
-      home: LoginPage(),
+      initialRoute: '',
       routes: {
         '': (context) => LoginPage(),
-        '/home_page': (context) => HomePage(),
-        '/add_task': (context) => AddTaskScreen(),
-        '/register': (context) => RegisterPage(),
+        'home_page': (context) => HomePage(),
+        'add_task': (context) => AddTaskScreen(),
+        'register': (context) => RegisterPage(),
       },
     );
   }

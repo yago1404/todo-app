@@ -100,7 +100,7 @@ class LoginPage extends StatelessWidget {
                             loginController.text, passwordController.text)) {
                           currentUser = User(
                               loginController.text, passwordController.text);
-                          Navigator.pushNamedAndRemoveUntil(context, '/home_page', (route) => false);
+                          Navigator.pushReplacementNamed(context, 'home_page');
                         } else {
                           failedDialog(
                               context, "Login ou senha incorretos");
@@ -125,7 +125,7 @@ class LoginPage extends StatelessWidget {
                             style: TextStyle(color: Colors.blue),
                           ),
                           onTap: () {
-                            Navigator.pushNamed(context, '/register');
+                            Navigator.of(context).pushNamed('register');
                           },
                         ),
                       ],
@@ -141,6 +141,6 @@ class LoginPage extends StatelessWidget {
   }
 
   callbackRegister(context) {
-    Navigator.pushNamed(context, "/home_page");
+    Navigator.pushNamed(context, 'home_page');
   }
 }

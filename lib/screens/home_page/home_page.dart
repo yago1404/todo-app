@@ -37,49 +37,55 @@ class _HomePageState extends State<HomePage> {
   }
 
   _body(context) {
-    return Stack(
-      children: [
-        Container(
-          margin: EdgeInsets.only(right: 30, left: 30),
-          child: SizedBox(
-            height: MediaQuery.of(context).size.height * .18,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.check,
-                        color: Colors.white,
-                        size: 38,
+    return Align(
+      alignment: Alignment.topCenter,
+      child: Container(
+        width: MediaQuery.of(context).size.width > 700 ? 700 : MediaQuery.of(context).size.width,
+        child: Stack(
+          children: [
+            Container(
+              margin: EdgeInsets.only(right: 30, left: 30),
+              child: SizedBox(
+                height: MediaQuery.of(context).size.height * .18,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.check,
+                            color: Colors.white,
+                            size: 38,
+                          ),
+                          SizedBox(width: 5),
+                          Text(
+                            currentUser.username,
+                            style: TextStyle(fontSize: 17),
+                          ),
+                        ],
                       ),
-                      SizedBox(width: 5),
-                      Text(
-                        currentUser.username,
-                        style: TextStyle(fontSize: 17),
-                      ),
-                    ],
-                  ),
-                ),
-                GestureDetector(
-                  child: Container(
-                    child: Align(
-                      child: Icon(Icons.logout),
                     ),
-                  ),
-                  onTap: () {
-                    currentUser = null;
-                    Navigator.pushNamedAndRemoveUntil(
-                        context, '/', (route) => false);
-                  },
+                    GestureDetector(
+                      child: Container(
+                        child: Align(
+                          child: Icon(Icons.logout),
+                        ),
+                      ),
+                      onTap: () {
+                        currentUser = null;
+                        Navigator.pushNamedAndRemoveUntil(
+                            context, '', (route) => false);
+                      },
+                    ),
+                  ],
                 ),
-              ],
+              ),
             ),
-          ),
+            CardListView(taskList, callbackFabIcon),
+          ],
         ),
-        CardListView(taskList, callbackFabIcon),
-      ],
+      ),
     );
   }
 
@@ -138,7 +144,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   addTaskNavigator() {
-    Navigator.pushNamed(context, '/add_task');
+    Navigator.pushNamed(context, 'add_task');
   }
 
   deleteTasks() {

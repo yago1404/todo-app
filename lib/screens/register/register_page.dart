@@ -146,10 +146,7 @@ class RegisterPage extends StatelessWidget {
                           currentUser = User(
                               loginController.text, passwordController.text);
                           users.add(currentUser);
-                          Navigator.of(context).pushAndRemoveUntil(
-                              MaterialPageRoute(
-                                  builder: (context) => HomePage()),
-                              (route) => false);
+                          Navigator.pushNamedAndRemoveUntil(context, 'home_page', (rout) => false);
                         }
                       },
                       child: Text("Cadastrar-se"),
@@ -168,7 +165,7 @@ class RegisterPage extends StatelessWidget {
                     height: 40,
                     child: TextButton(
                       onPressed: () {
-                        Navigator.pushNamed(context, '/');
+                        Navigator.pushNamedAndRemoveUntil(context, '', (rout) => false);
                       },
                       child: Text("Cancelar"),
                       style: TextButton.styleFrom(primary: Colors.white),
