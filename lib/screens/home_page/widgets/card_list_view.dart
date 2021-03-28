@@ -18,13 +18,30 @@ class _CardListViewState extends State<CardListView> {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * .15),
-      child: Scrollbar(
-        isAlwaysShown: kIsWeb,
-        child: ListView.builder(
-          itemCount: widget.taskList!.length,
-          itemBuilder: (BuildContext context, int index) {
-            return TaskCard(widget.taskList![index], widget.callbackFabIcon);
-          },
+      child: widget.taskList!.length <= 0
+          ? _listIsEmpty()
+          : Scrollbar(
+            isAlwaysShown: kIsWeb,
+            child: ListView.builder(
+                itemCount: widget.taskList!.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return TaskCard(
+                    widget.taskList![index],
+                    widget.callbackFabIcon,
+                  );
+                },
+              ),
+          ),
+    );
+  }
+
+  _listIsEmpty() {
+    return Container(
+      margin: EdgeInsets.only(top: 50),
+      child: Align(
+        alignment: Alignment.topCenter,
+        child: Container(
+          child: Text("Sem tarefas por enquanto"),
         ),
       ),
     );
