@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:todo/commons/consts.dart';
 import 'package:todo/models/task/task.dart';
 import 'package:todo/screens/home_page/widgets/card_list_view.dart';
@@ -73,17 +74,20 @@ class _HomePageState extends State<HomePage> {
                         ],
                       ),
                     ),
-                    GestureDetector(
-                      child: Container(
-                        child: Align(
-                          child: Icon(Icons.logout),
+                    Tooltip(
+                      message: "Fazer logout",
+                      child: GestureDetector(
+                        child: Container(
+                          child: Align(
+                            child: Icon(Icons.logout),
+                          ),
                         ),
+                        onTap: () {
+                          currentUser = null;
+                          Navigator.pushNamedAndRemoveUntil(
+                              context, '', (route) => false);
+                        },
                       ),
-                      onTap: () {
-                        currentUser = null;
-                        Navigator.pushNamedAndRemoveUntil(
-                            context, '', (route) => false);
-                      },
                     ),
                   ],
                 ),
