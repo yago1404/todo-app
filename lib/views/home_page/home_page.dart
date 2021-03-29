@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:todo/commons/consts.dart';
 import 'package:todo/models/task/task.dart';
-import 'package:todo/screens/home_page/widgets/card_list_view.dart';
-import 'package:todo/screens/widget/confirm_message.dart';
+import 'package:todo/views/home_page/widgets/card_list_view.dart';
+import 'package:todo/views/widget/confirm_message.dart';
 import 'package:todo/service/task_service.dart';
 
 class HomePage extends StatefulWidget {
@@ -30,7 +30,7 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     this._someTaskSelected = false;
     this.selectedTasks = [];
-    taskList = taskService.getAllTasks;
+    taskList = taskService.loadAllTasks;
     setFabState();
   }
 
@@ -138,7 +138,7 @@ class _HomePageState extends State<HomePage> {
     var task = taskService.getTaskById(taskId);
     if (task != false) {
       setState(() {
-        this.taskList = taskService.getAllTasks;
+        this.taskList = taskService.loadAllTasks;
         var tempStatus = false;
         for (Task i in taskList!) {
           tempStatus = tempStatus || i.status;
@@ -167,7 +167,7 @@ class _HomePageState extends State<HomePage> {
       taskService.deleteTask(this.selectedTasks);
       setSelectedTasks();
       setFabState();
-      taskList = taskService.getAllTasks;
+      taskList = taskService.loadAllTasks;
     });
   }
 }

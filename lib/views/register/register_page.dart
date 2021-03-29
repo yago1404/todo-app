@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:todo/commons/consts.dart';
 import 'package:todo/commons/database_test.dart';
 import 'package:todo/models/user/user.dart';
-import 'package:todo/screens/home_page/home_page.dart';
-import 'package:todo/screens/widget/alert_error.dart';
+import 'package:todo/views/home_page/home_page.dart';
+import 'package:todo/views/widget/alert_error.dart';
 import 'package:todo/service/auth_service.dart';
 
 class RegisterPage extends StatelessWidget {

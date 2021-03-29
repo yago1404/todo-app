@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:todo/screens/widget/alert_error.dart';
+import 'package:todo/views/widget/alert_error.dart';
 import 'package:todo/service/task_service.dart';
 
 class AddTaskScreen extends StatefulWidget {

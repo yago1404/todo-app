@@ -3,7 +3,7 @@ import 'package:todo/models/task/task.dart';
 
 class TaskService {
 
-  List<Task> get getAllTasks {
+  List<Task> get loadAllTasks {
     return tasks;
   }
 

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:todo/screens/add_task/add_task.dart';
-import 'package:todo/screens/home_page/home_page.dart';
-import 'package:todo/screens/login/login_page.dart';
-import 'package:todo/screens/register/register_page.dart';
+import 'package:todo/views/add_task/add_task.dart';
+import 'package:todo/views/home_page/home_page.dart';
+import 'package:todo/views/login/login_page.dart';
+import 'package:todo/views/register/register_page.dart';
 
 // Login e senha padrão: admin, admin
 

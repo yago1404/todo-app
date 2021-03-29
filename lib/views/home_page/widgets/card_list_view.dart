@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:todo/models/task/task.dart';
-import 'package:todo/screens/home_page/widgets/task_card.dart';
+import 'package:todo/views/home_page/widgets/task_card.dart';
 
 class CardListView extends StatefulWidget {
   final List<Task>? taskList;
