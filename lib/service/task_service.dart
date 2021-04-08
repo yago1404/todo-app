@@ -15,7 +15,7 @@ class TaskService {
 
   addTask(String title, String description, bool status) {
     var id;
-    if(tasks.length > 0) id = tasks[tasks.length - 1].id + 1;
+    if(tasks.length > 0) id = tasks[tasks.length - 1].id! + 1;
     else id = 1;
     Task task = Task(title, description, status, id);
     tasks.add(task);
@@ -23,7 +23,7 @@ class TaskService {
 
   getTaskById(int taskId) {
     for (var i in tasks) {
-      if(i.id == taskId) return i;
+      if(i.id! == taskId) return i;
     }
     return false;
   }
