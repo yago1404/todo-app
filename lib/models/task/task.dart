@@ -23,8 +23,8 @@ abstract class _Task with Store{
   }
 
   @action
-  setStatus(bool newStatus) {
-    this.status = newStatus;
+  changeStatus() {
+    this.status = !this.status;
   }
 
   _Task(this.title, this.description, this.status, this.id);

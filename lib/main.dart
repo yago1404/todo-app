@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:todo/commons/consts.dart';
+import 'package:todo/models/user/user.dart';
+import 'package:todo/service/auth_service.dart';
 import 'package:todo/views/add_task/add_task.dart';
 import 'package:todo/views/home_page/home_page.dart';
 import 'package:todo/views/login/login_page.dart';
@@ -20,7 +23,7 @@ class MyApp extends StatelessWidget {
         brightness: Brightness.dark,
       ),
       themeMode: ThemeMode.dark,
-      initialRoute: '',
+      initialRoute: currentUser != null ? 'home_page' : '',
       routes: {
         '': (context) => LoginPage(),
         'home_page': (context) => HomePage(),

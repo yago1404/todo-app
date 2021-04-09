@@ -87,7 +87,7 @@ mixin _$Task on _Task, Store {
     final _$actionInfo =
         _$_TaskActionController.startAction(name: '_Task.setStatus');
     try {
-      return super.setStatus(newStatus);
+      return super.changeStatus();
     } finally {
       _$_TaskActionController.endAction(_$actionInfo);
     }

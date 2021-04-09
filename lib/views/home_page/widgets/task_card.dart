@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:todo/models/task/task.dart';
 
 class TaskCard extends StatelessWidget {
@@ -27,11 +28,13 @@ class TaskCard extends StatelessWidget {
             task.description,
             style: TextStyle(color: Colors.grey),
           ),
-          trailing: Icon(
-            this.task.status
-                ? Icons.check_circle
-                : Icons.radio_button_unchecked,
-            color: Colors.green,
+          trailing: Observer(
+            builder: (_) => Icon(
+              this.task.status
+                  ? Icons.check_circle
+                  : Icons.radio_button_unchecked,
+              color: Colors.green,
+            ),
           ),
         ),
       ),
@@ -39,7 +42,7 @@ class TaskCard extends StatelessWidget {
   }
 
   _changeStatus() {
-    this.task.setStatus(!this.task.status);
+    this.task.changeStatus();
     callback(task.id);
   }
 }
