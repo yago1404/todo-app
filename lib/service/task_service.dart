@@ -1,30 +1,65 @@
+import 'package:dio/dio.dart';
 import 'package:todo/commons/database_test.dart';
 import 'package:todo/models/task/task.dart';
+import 'package:todo/service/serializers/task_serializer.dart';
 
 class TaskService {
+  Dio _dio = Dio();
+  TaskSerializer taskSerializer = TaskSerializer();
 
-  List<Task> get loadAllTasks {
-    return tasks;
-  }
-
-  deleteTask(List<Task> tasksToRemove) {
-    for(var task in tasksToRemove) {
-      tasks.remove(task);
+  Future<List<Task>> get loadAllTasks async {
+    List<Task> tasksList = [];
+    try {
+      var response = await _dio.get('http://10.0.2.2:8000/api/tasks/');
+      for (var i in response.data) {
+        tasksList.add(taskSerializer.serializer(i));
+      }
+      return tasksList;
+    } catch (e) {
+      print(e);
+      return [];
     }
   }
 
-  addTask(String title, String description, bool status) {
-    var id;
-    if(tasks.length > 0) id = tasks[tasks.length - 1].id! + 1;
-    else id = 1;
-    Task task = Task(title, description, status, id);
+  deleteTask(List<Task> tasksToRemove) async {
+    try {
+      for (var task in tasksToRemove) {
+        await _dio.delete('http://10.0.2.2:8000/api/tasks/${task.id}/');
+      }
+    } on DioError catch (e) {
+      print(e);
+      print('não consegui remover');
+    }
+  }
+
+  addTask(String title, String description, bool status) async {
+    String stringStatus = status ? 'done' : 'doing';
+    Response response = await _dio.post('http://10.0.2.2:8000/api/tasks/', data: {
+      'title': title,
+      'description': description,
+      'done': stringStatus
+    });
+    Task task = Task(title, description, status, response.data['id']);
     tasks.add(task);
   }
 
-  getTaskById(int taskId) {
-    for (var i in tasks) {
-      if(i.id! == taskId) return i;
+  getTaskById(int taskId) async {
+    try {
+      Response response =
+          await _dio.get('http://10.0.2.2:8000/api/tasks/$taskId/');
+      var task = taskSerializer.serializer(response.data);
+      return task;
+    } on DioError catch (e) {
+      print(e);
+      return false;
     }
-    return false;
+  }
+
+  Future<bool> updateTaskStatus(taskId, newStatus) async {
+    await _dio.patch(
+      'http://10.0.2.2:8000/api/tasks/$taskId/',
+      data: {'done': newStatus},
+    );
+    return true;
   }
 }

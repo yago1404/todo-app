@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:todo/models/task/task.dart';
+import 'package:todo/service/task_service.dart';
 
 class TaskCard extends StatelessWidget {
   final Function callback;
@@ -41,8 +42,14 @@ class TaskCard extends StatelessWidget {
     );
   }
 
-  _changeStatus() {
-    this.task.changeStatus();
-    callback(task.id);
+  _changeStatus() async {
+    String newStatus = task.status == true ? 'doing' : 'done';
+    bool canUpdate = await TaskService().updateTaskStatus(task.id, newStatus);
+    if (canUpdate) {
+      this.task.changeStatus();
+      callback(task.id);
+    } else {
+      return;
+    }
   }
 }

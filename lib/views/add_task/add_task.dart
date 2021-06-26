@@ -94,10 +94,10 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
               ),
               width: _screenWidthAdapter,
               child: TextField(
-                onEditingComplete: () {
+                onEditingComplete: () async {
                   if (_titleController != null &&
                       _descriptionController != null) {
-                    taskService.addTask(this._titleController!.text,
+                    await taskService.addTask(this._titleController!.text,
                         this._descriptionController!.text, false);
                     Navigator.pushNamed(context, 'home_page');
                   } else {
@@ -124,10 +124,10 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
               width: _screenWidthAdapter,
               height: 40,
               child: TextButton(
-                onPressed: () {
+                onPressed: () async {
                   if (_titleController!.text != "" &&
                       _descriptionController!.text != "") {
-                    taskService.addTask(this._titleController!.text,
+                    await taskService.addTask(this._titleController!.text,
                         this._descriptionController!.text, false);
                     Navigator.pushNamed(context, 'home_page');
                   } else {

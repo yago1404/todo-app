@@ -15,22 +15,26 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   TaskService taskService = TaskService();
-  List<Task>? taskList;
+  late Future<List<Task>> futureTaskList;
+  late List<Task> taskList;
   late List<Task> selectedTasks;
   Function? _fabFunction;
   Icon? _fabIcon;
   Color? _fabColor;
   bool _someTaskSelected = false;
+  bool _isLoadScreen = true;
 
   @override
   void initState() {
     Timer.run(() {
-      if(currentUser == null) Navigator.pushNamedAndRemoveUntil(context, '', (route) => false);
+      if (currentUser == null)
+        Navigator.pushNamedAndRemoveUntil(context, '', (route) => false);
     });
     super.initState();
     this._someTaskSelected = false;
     this.selectedTasks = [];
-    taskList = taskService.loadAllTasks;
+    futureTaskList = taskService.loadAllTasks;
+    this.taskList = [];
     setFabState();
   }
 
@@ -68,7 +72,9 @@ class _HomePageState extends State<HomePage> {
                           ),
                           SizedBox(width: 5),
                           Text(
-                            currentUser == null ? 'no username' : currentUser!.username,
+                            currentUser == null
+                                ? 'no username'
+                                : currentUser!.username,
                             style: TextStyle(fontSize: 17),
                           ),
                         ],
@@ -93,7 +99,21 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
-            CardListView(taskList, callbackFabIcon),
+            FutureBuilder<List<Task>>(
+              future: futureTaskList,
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  this.taskList =
+                      this._isLoadScreen ? snapshot.data! : this.taskList;
+                  this._isLoadScreen = false;
+                  return CardListView(taskList, callbackFabIcon);
+                } else if (snapshot.hasError) {
+                  return Text('Error');
+                }
+
+                return CircularProgressIndicator();
+              },
+            ),
           ],
         ),
       ),
@@ -125,7 +145,7 @@ class _HomePageState extends State<HomePage> {
   void setSelectedTasks() {
     this._someTaskSelected = false;
     List<Task> tempList = [];
-    for (var i in taskList!) {
+    for (var i in taskList) {
       if (i.status) {
         tempList.add(i);
         this._someTaskSelected = true;
@@ -134,13 +154,14 @@ class _HomePageState extends State<HomePage> {
     this.selectedTasks = tempList;
   }
 
-  callbackFabIcon(int taskId) {
-    var task = taskService.getTaskById(taskId);
+  callbackFabIcon(int taskId) async {
+    var task = await taskService.getTaskById(taskId);
     if (task != false) {
+      var newTaskList = await taskService.loadAllTasks;
       setState(() {
-        this.taskList = taskService.loadAllTasks;
+        this.taskList = newTaskList;
         var tempStatus = false;
-        for (Task i in taskList!) {
+        for (Task i in taskList) {
           tempStatus = tempStatus || i.status;
         }
         this._someTaskSelected = tempStatus;
@@ -162,12 +183,13 @@ class _HomePageState extends State<HomePage> {
     Navigator.pushNamed(context, 'add_task');
   }
 
-  deleteTasks() {
+  deleteTasks() async {
+    await taskService.deleteTask(this.selectedTasks);
+    var newTaskList = await taskService.loadAllTasks;
     setState(() {
-      taskService.deleteTask(this.selectedTasks);
+      this.taskList = newTaskList;
       setSelectedTasks();
       setFabState();
-      taskList = taskService.loadAllTasks;
     });
   }
 }
