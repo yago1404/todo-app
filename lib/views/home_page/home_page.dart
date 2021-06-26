@@ -174,7 +174,7 @@ class _HomePageState extends State<HomePage> {
   deleteSelectedTasks() {
     confirmDialog(
         context: context,
-        message: "Deseja apagar a menssagem?",
+        message: "Deseja apagar a Task?",
         title: "Apagar task",
         confirmFunction: deleteTasks);
   }
