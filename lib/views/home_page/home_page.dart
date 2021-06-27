@@ -7,6 +7,7 @@ import 'package:todo/models/task/task.dart';
 import 'package:todo/views/home_page/widgets/card_list_view.dart';
 import 'package:todo/views/widget/confirm_message.dart';
 import 'package:todo/service/task_service.dart';
+import 'package:todo/views/widget/load_alert.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -14,10 +15,10 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  TaskService taskService = TaskService();
-  late Future<List<Task>> futureTaskList;
-  late List<Task> taskList;
-  late List<Task> selectedTasks;
+  TaskService _taskService = TaskService();
+  late Future<List<Task>> _futureTaskList;
+  late List<Task> _taskList;
+  late List<Task> _selectedTasks;
   Function? _fabFunction;
   Icon? _fabIcon;
   Color? _fabColor;
@@ -32,9 +33,9 @@ class _HomePageState extends State<HomePage> {
     });
     super.initState();
     this._someTaskSelected = false;
-    this.selectedTasks = [];
-    futureTaskList = taskService.loadAllTasks;
-    this.taskList = [];
+    this._selectedTasks = [];
+    _futureTaskList = _taskService.loadAllTasks;
+    this._taskList = [];
     setFabState();
   }
 
@@ -100,18 +101,25 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             FutureBuilder<List<Task>>(
-              future: futureTaskList,
+              future: _futureTaskList,
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
-                  this.taskList =
-                      this._isLoadScreen ? snapshot.data! : this.taskList;
+                  this._taskList =
+                      this._isLoadScreen ? snapshot.data! : this._taskList;
                   this._isLoadScreen = false;
-                  return CardListView(taskList, callbackFabIcon);
+                  return CardListView(_taskList, callbackFabIcon);
                 } else if (snapshot.hasError) {
                   return Text('Error');
                 }
 
-                return CircularProgressIndicator();
+                return Container(
+                  padding: EdgeInsets.only(top: 50),
+                  child: Center(
+                    child: CircularProgressIndicator(
+                      valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
+                    ),
+                  ),
+                );
               },
             ),
           ],
@@ -145,23 +153,23 @@ class _HomePageState extends State<HomePage> {
   void setSelectedTasks() {
     this._someTaskSelected = false;
     List<Task> tempList = [];
-    for (var i in taskList) {
+    for (var i in _taskList) {
       if (i.status) {
         tempList.add(i);
         this._someTaskSelected = true;
       }
     }
-    this.selectedTasks = tempList;
+    this._selectedTasks = tempList;
   }
 
   callbackFabIcon(int taskId) async {
-    var task = await taskService.getTaskById(taskId);
+    var task = await _taskService.getTaskById(taskId);
     if (task != false) {
-      var newTaskList = await taskService.loadAllTasks;
+      var newTaskList = await _taskService.loadAllTasks;
       setState(() {
-        this.taskList = newTaskList;
+        this._taskList = newTaskList;
         var tempStatus = false;
-        for (Task i in taskList) {
+        for (Task i in _taskList) {
           tempStatus = tempStatus || i.status;
         }
         this._someTaskSelected = tempStatus;
@@ -184,10 +192,12 @@ class _HomePageState extends State<HomePage> {
   }
 
   deleteTasks() async {
-    await taskService.deleteTask(this.selectedTasks);
-    var newTaskList = await taskService.loadAllTasks;
+    loadAlert(context, message: 'Deletando tasks');
+    await _taskService.deleteTask(this._selectedTasks);
+    Navigator.pop(context);
+    var newTaskList = await _taskService.loadAllTasks;
     setState(() {
-      this.taskList = newTaskList;
+      this._taskList = newTaskList;
       setSelectedTasks();
       setFabState();
     });

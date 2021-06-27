@@ -8,13 +8,13 @@ import 'package:todo/views/widget/alert_error.dart';
 import 'package:todo/service/auth_service.dart';
 
 class LoginPage extends StatelessWidget {
-  final TextEditingController loginController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
-  double? screenWidthAdapter;
+  final TextEditingController _loginController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  late double? _screenWidthAdapter;
 
   @override
   Widget build(BuildContext context) {
-    this.screenWidthAdapter = MediaQuery.of(context).size.width > 500
+    this._screenWidthAdapter = MediaQuery.of(context).size.width > 500
         ? 500
         : MediaQuery.of(context).size.width;
 
@@ -54,9 +54,9 @@ class LoginPage extends StatelessWidget {
                         width: 1,
                       ),
                     ),
-                    width: screenWidthAdapter,
+                    width: _screenWidthAdapter,
                     child: TextField(
-                      controller: loginController,
+                      controller: _loginController,
                       decoration: InputDecoration(
                         hintText: "login",
                         border: InputBorder.none,
@@ -80,9 +80,9 @@ class LoginPage extends StatelessWidget {
                         width: 1,
                       ),
                     ),
-                    width: screenWidthAdapter,
+                    width: _screenWidthAdapter,
                     child: TextField(
-                      controller: passwordController,
+                      controller: _passwordController,
                       obscureText: true,
                       decoration: InputDecoration(
                         hintText: "Password",
@@ -100,7 +100,7 @@ class LoginPage extends StatelessWidget {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(5),
                     ),
-                    width: screenWidthAdapter,
+                    width: _screenWidthAdapter,
                     height: 50,
                     child: TextButton(
                       onPressed: () {
@@ -115,7 +115,7 @@ class LoginPage extends StatelessWidget {
                   ),
                   Container(
                     margin: EdgeInsets.only(top: 20),
-                    width: screenWidthAdapter,
+                    width: _screenWidthAdapter,
                     child: Row(
                       children: [
                         Text("Ainda não tem uma conta? "),
@@ -145,8 +145,8 @@ class LoginPage extends StatelessWidget {
   }
 
   _login(context) {
-    if (doLogin(loginController.text, passwordController.text)) {
-      currentUser = User(loginController.text, passwordController.text);
+    if (doLogin(_loginController.text, _passwordController.text)) {
+      currentUser = User(_loginController.text, _passwordController.text);
       Navigator.pushReplacementNamed(context, 'home_page');
     } else {
       failedDialog(context, "Login ou senha incorretos");

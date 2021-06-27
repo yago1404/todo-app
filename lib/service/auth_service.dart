@@ -1,4 +1,3 @@
-// todo: implement auth service
 import 'package:todo/commons/database_test.dart';
 
 bool doLogin(username, password) {

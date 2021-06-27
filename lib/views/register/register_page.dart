@@ -6,15 +6,15 @@ import 'package:todo/views/widget/alert_error.dart';
 import 'package:todo/service/auth_service.dart';
 
 class RegisterPage extends StatelessWidget {
-  final TextEditingController loginController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
-  final TextEditingController confirmPasswordController =
+  final TextEditingController _loginController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
       TextEditingController();
-  double? screenWidthAdapter;
+  double? _screenWidthAdapter;
 
   @override
   Widget build(BuildContext context) {
-    this.screenWidthAdapter = MediaQuery.of(context).size.width > 500
+    this._screenWidthAdapter = MediaQuery.of(context).size.width > 500
         ? 500
         : MediaQuery.of(context).size.width;
 
@@ -49,7 +49,7 @@ class RegisterPage extends StatelessWidget {
                     height: 40,
                   ),
                   Container(
-                    width: screenWidthAdapter,
+                    width: _screenWidthAdapter,
                     padding:
                         EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 5),
                     decoration: BoxDecoration(
@@ -60,7 +60,7 @@ class RegisterPage extends StatelessWidget {
                       ),
                     ),
                     child: TextField(
-                      controller: loginController,
+                      controller: _loginController,
                       decoration: InputDecoration(
                         hintText: "login",
                         border: InputBorder.none,
@@ -75,7 +75,7 @@ class RegisterPage extends StatelessWidget {
                     height: 15,
                   ),
                   Container(
-                    width: screenWidthAdapter,
+                    width: _screenWidthAdapter,
                     padding:
                         EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 5),
                     decoration: BoxDecoration(
@@ -86,7 +86,7 @@ class RegisterPage extends StatelessWidget {
                       ),
                     ),
                     child: TextField(
-                      controller: passwordController,
+                      controller: _passwordController,
                       obscureText: true,
                       decoration: InputDecoration(
                         hintText: "Senha",
@@ -102,7 +102,7 @@ class RegisterPage extends StatelessWidget {
                     height: 15,
                   ),
                   Container(
-                    width: screenWidthAdapter,
+                    width: _screenWidthAdapter,
                     padding:
                         EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 5),
                     decoration: BoxDecoration(
@@ -113,7 +113,7 @@ class RegisterPage extends StatelessWidget {
                       ),
                     ),
                     child: TextField(
-                      controller: confirmPasswordController,
+                      controller: _confirmPasswordController,
                       obscureText: true,
                       decoration: InputDecoration(
                         hintText: "Repita a senha",
@@ -132,7 +132,7 @@ class RegisterPage extends StatelessWidget {
                       color: Colors.green,
                       borderRadius: BorderRadius.circular(5),
                     ),
-                    width: screenWidthAdapter,
+                    width: _screenWidthAdapter,
                     height: 40,
                     child: TextButton(
                       onPressed: () {
@@ -150,7 +150,7 @@ class RegisterPage extends StatelessWidget {
                       color: Colors.red,
                       borderRadius: BorderRadius.circular(5),
                     ),
-                    width: screenWidthAdapter,
+                    width: _screenWidthAdapter,
                     height: 40,
                     child: TextButton(
                       onPressed: () {
@@ -170,25 +170,25 @@ class RegisterPage extends StatelessWidget {
   }
 
   _register(context) {
-    if (passwordController.text == "" ||
-        confirmPasswordController.text == "" ||
-        loginController.text == "") {
+    if (_passwordController.text == "" ||
+        _confirmPasswordController.text == "" ||
+        _loginController.text == "") {
       failedDialog(context, "Preencha todos os campos");
       return;
     }
-    if (passwordController.text !=
-        confirmPasswordController.text) {
+    if (_passwordController.text !=
+        _confirmPasswordController.text) {
       failedDialog(context, "Senha não compatível");
       return;
     }
-    if (registerUser(this.loginController.text,
-        this.passwordController.text) ==
+    if (registerUser(this._loginController.text,
+        this._passwordController.text) ==
         "Nome de usuário já existe") {
       failedDialog(
           context, "Nome de usuário já existe");
     } else {
       currentUser = User(
-          loginController.text, passwordController.text);
+          _loginController.text, _passwordController.text);
       users.add(currentUser);
       Navigator.pushNamedAndRemoveUntil(context, 'home_page', (rout) => false);
     }

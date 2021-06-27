@@ -4,10 +4,10 @@ import 'package:todo/models/task/task.dart';
 import 'package:todo/service/task_service.dart';
 
 class TaskCard extends StatelessWidget {
-  final Function callback;
-  final Task task;
+  final Function _callback;
+  final Task _task;
 
-  TaskCard(this.task, this.callback);
+  TaskCard(this._task, this._callback);
 
   @override
   Widget build(BuildContext context) {
@@ -22,16 +22,16 @@ class TaskCard extends StatelessWidget {
         ),
         child: ListTile(
           title: Text(
-            task.title,
+            _task.title,
             style: TextStyle(color: Colors.black),
           ),
           subtitle: Text(
-            task.description,
+            _task.description,
             style: TextStyle(color: Colors.grey),
           ),
           trailing: Observer(
             builder: (_) => Icon(
-              this.task.status
+              this._task.status
                   ? Icons.check_circle
                   : Icons.radio_button_unchecked,
               color: Colors.green,
@@ -43,11 +43,11 @@ class TaskCard extends StatelessWidget {
   }
 
   _changeStatus() async {
-    String newStatus = task.status == true ? 'doing' : 'done';
-    bool canUpdate = await TaskService().updateTaskStatus(task.id, newStatus);
+    String newStatus = _task.status == true ? 'doing' : 'done';
+    bool canUpdate = await TaskService().updateTaskStatus(_task.id, newStatus);
     if (canUpdate) {
-      this.task.changeStatus();
-      callback(task.id);
+      this._task.changeStatus();
+      _callback(_task.id);
     } else {
       return;
     }

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
-confirmDialog(
-    {required BuildContext context,
-    String? message,
-    String? title,
-    Function? confirmFunction}) {
+confirmDialog({
+  required BuildContext context,
+  String? message,
+  String? title,
+  Function? confirmFunction,
+}) {
   return showDialog(
       context: context,
       builder: (context) {
@@ -20,8 +21,8 @@ confirmDialog(
           actions: [
             TextButton(
               onPressed: () {
-                confirmFunction!();
                 Navigator.pop(context);
+                confirmFunction!();
               },
               child: Text("Confirmar"),
             ),

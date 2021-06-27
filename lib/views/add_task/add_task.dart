@@ -8,16 +8,18 @@ class AddTaskScreen extends StatefulWidget {
 }
 
 class _AddTaskScreenState extends State<AddTaskScreen> {
-  TaskService taskService = TaskService();
+  TaskService _taskService = TaskService();
   TextEditingController? _titleController;
   TextEditingController? _descriptionController;
   double? _screenWidthAdapter;
+  bool? _savingTask;
 
   @override
   void initState() {
     super.initState();
     _titleController = TextEditingController();
     _descriptionController = TextEditingController();
+    _savingTask = false;
   }
 
   @override
@@ -97,7 +99,7 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
                 onEditingComplete: () async {
                   if (_titleController != null &&
                       _descriptionController != null) {
-                    await taskService.addTask(this._titleController!.text,
+                    await _taskService.addTask(this._titleController!.text,
                         this._descriptionController!.text, false);
                     Navigator.pushNamed(context, 'home_page');
                   } else {
@@ -125,25 +127,40 @@ class _AddTaskScreenState extends State<AddTaskScreen> {
               height: 40,
               child: TextButton(
                 onPressed: () async {
-                  if (_titleController!.text != "" &&
-                      _descriptionController!.text != "") {
-                    await taskService.addTask(this._titleController!.text,
-                        this._descriptionController!.text, false);
-                    Navigator.pushNamed(context, 'home_page');
-                  } else {
-                    failedDialog(
-                        context, "É preciso preencher todos os campos");
-                  }
+                  setState(() {
+                    _savingTask = true;
+                  });
+                  await _saveTask();
+                  setState(() {
+                    _savingTask = false;
+                  });
                 },
                 style: TextButton.styleFrom(primary: Colors.white),
-                child: Text(
-                  "Salvar",
-                ),
+                child: _savingTask == true
+                    ? Container(
+                        width: 30,
+                        height: 30,
+                        child: CircularProgressIndicator(
+                          valueColor:
+                              AlwaysStoppedAnimation<Color>(Colors.white),
+                        ),
+                      )
+                    : Text("Salvar"),
               ),
             ),
           ],
         ),
       ),
     );
+  }
+
+  _saveTask() async {
+    if (_titleController!.text != "" && _descriptionController!.text != "") {
+      await _taskService.addTask(this._titleController!.text,
+          this._descriptionController!.text, false);
+      Navigator.pushNamed(context, 'home_page');
+    } else {
+      failedDialog(context, "É preciso preencher todos os campos");
+    }
   }
 }
