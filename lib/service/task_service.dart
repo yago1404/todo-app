@@ -15,7 +15,6 @@ class TaskService {
     _dio.options.receiveTimeout = 5000;
   }
 
-
   Future<List<Task>> get loadAllTasks async {
     List<Task> tasksList = [];
     try {
@@ -44,15 +43,14 @@ class TaskService {
   addTask(String title, String description, bool status) async {
     String stringStatus = status ? 'done' : 'doing';
     try {
-      Response response = await _dio.post('${this._url}tasks/',
-          data: {
-            'title': title,
-            'description': description,
-            'done': stringStatus
-          });
+      Response response = await _dio.post('${this._url}tasks/', data: {
+        'title': title,
+        'description': description,
+        'done': stringStatus
+      });
       Task task = Task(title, description, status, response.data['id']);
       tasks.add(task);
-    } on DioError catch(e) {
+    } on DioError catch (e) {
       print(e.error);
       return;
     }
@@ -60,8 +58,7 @@ class TaskService {
 
   getTaskById(int taskId) async {
     try {
-      Response response =
-          await _dio.get('${this._url}tasks/$taskId/');
+      Response response = await _dio.get('${this._url}tasks/$taskId/');
       var task = _taskSerializer.serializer(response.data);
       return task;
     } on DioError catch (e) {
