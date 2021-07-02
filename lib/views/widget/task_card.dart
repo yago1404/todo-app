@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:todo/models/task/task.dart';
-import 'package:todo/service/task_service.dart';
+import 'package:todo/repository/task_service.dart';
 
 class TaskCard extends StatelessWidget {
   final Function _callback;

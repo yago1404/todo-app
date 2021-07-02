@@ -1,11 +1,11 @@
 
+import 'package:todo/repository/auth_service.dart';
 import 'package:universal_html/html.dart' as html;
 
 import 'package:flutter/material.dart';
 import 'package:todo/commons/consts.dart';
 import 'package:todo/models/user/user.dart';
 import 'package:todo/views/widget/alert_error.dart';
-import 'package:todo/service/auth_service.dart';
 
 class LoginPage extends StatelessWidget {
   final TextEditingController _loginController = TextEditingController();

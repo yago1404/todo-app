@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:todo/models/task/task.dart';
-import 'package:todo/views/home_page/widgets/task_card.dart';
+import 'package:todo/views/widget/task_card.dart';
 
 class CardListView extends StatefulWidget {
   final List<Task>? taskList;
@@ -17,7 +17,7 @@ class _CardListViewState extends State<CardListView> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * .15),
+      padding: EdgeInsets.only(top: 40),
       child: widget.taskList!.length <= 0
           ? _listIsEmpty()
           : Scrollbar(

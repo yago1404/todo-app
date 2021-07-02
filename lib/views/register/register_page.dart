@@ -3,7 +3,7 @@ import 'package:todo/commons/consts.dart';
 import 'package:todo/commons/database_test.dart';
 import 'package:todo/models/user/user.dart';
 import 'package:todo/views/widget/alert_error.dart';
-import 'package:todo/service/auth_service.dart';
+import 'package:todo/repository/auth_service.dart';
 
 class RegisterPage extends StatelessWidget {
   final TextEditingController _loginController = TextEditingController();

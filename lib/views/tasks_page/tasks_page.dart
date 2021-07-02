@@ -4,17 +4,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:todo/commons/consts.dart';
 import 'package:todo/models/task/task.dart';
-import 'package:todo/views/home_page/widgets/card_list_view.dart';
+import 'package:todo/repository/task_service.dart';
 import 'package:todo/views/widget/confirm_message.dart';
-import 'package:todo/service/task_service.dart';
 import 'package:todo/views/widget/load_alert.dart';
+import 'package:todo/views/widget/task_card_list_view.dart';
 
-class HomePage extends StatefulWidget {
+class TaskPage extends StatefulWidget {
   @override
-  _HomePageState createState() => _HomePageState();
+  _TaskPageState createState() => _TaskPageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _TaskPageState extends State<TaskPage> {
   TaskService _taskService = TaskService();
   late Future<List<Task>> _futureTaskList;
   late List<Task> _taskList;
@@ -42,87 +42,38 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: _appBar(context),
       body: _body(context),
       floatingActionButton: _fab(context),
     );
   }
 
   _body(context) {
-    return Align(
-      alignment: Alignment.topCenter,
+    return SafeArea(
       child: Container(
         width: MediaQuery.of(context).size.width > 700
             ? 700
             : MediaQuery.of(context).size.width,
-        child: Stack(
-          children: [
-            Container(
-              margin: EdgeInsets.only(right: 30, left: 30),
-              child: SizedBox(
-                height: MediaQuery.of(context).size.height * .18,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Container(
-                      child: Row(
-                        children: [
-                          Icon(
-                            Icons.check,
-                            color: Colors.white,
-                            size: 38,
-                          ),
-                          SizedBox(width: 5),
-                          Text(
-                            currentUser == null
-                                ? 'no username'
-                                : currentUser!.username,
-                            style: TextStyle(fontSize: 17),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Tooltip(
-                      message: "Fazer logout",
-                      child: GestureDetector(
-                        child: Container(
-                          child: Align(
-                            child: Icon(Icons.logout),
-                          ),
-                        ),
-                        onTap: () {
-                          currentUser = null;
-                          Navigator.pushNamedAndRemoveUntil(
-                              context, '', (route) => false);
-                        },
-                      ),
-                    ),
-                  ],
+        child: FutureBuilder<List<Task>>(
+          future: _futureTaskList,
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              this._taskList =
+                  this._isLoadScreen ? snapshot.data! : this._taskList;
+              this._isLoadScreen = false;
+              return CardListView(_taskList, callbackFabIcon);
+            } else if (snapshot.hasError) {
+              return Text('Error');
+            }
+
+            return Container(
+              child: Center(
+                child: CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
                 ),
               ),
-            ),
-            FutureBuilder<List<Task>>(
-              future: _futureTaskList,
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  this._taskList =
-                      this._isLoadScreen ? snapshot.data! : this._taskList;
-                  this._isLoadScreen = false;
-                  return CardListView(_taskList, callbackFabIcon);
-                } else if (snapshot.hasError) {
-                  return Text('Error');
-                }
-
-                return Container(
-                  padding: EdgeInsets.only(top: 50),
-                  child: Center(
-                    child: CircularProgressIndicator(
-                      valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
-                    ),
-                  ),
-                );
-              },
-            ),
-          ],
+            );
+          },
         ),
       ),
     );
@@ -201,5 +152,14 @@ class _HomePageState extends State<HomePage> {
       setSelectedTasks();
       setFabState();
     });
+  }
+
+  _appBar(BuildContext context) {
+    return AppBar(
+      elevation: 0,
+      backgroundColor: Color(0xFF2E2E2E),
+      title: Text('Lista'),
+      centerTitle: true,
+    );
   }
 }

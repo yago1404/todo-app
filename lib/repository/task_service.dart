@@ -3,7 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:todo/commons/consts.dart';
 import 'package:todo/commons/database_test.dart';
 import 'package:todo/models/task/task.dart';
-import 'package:todo/service/serializers/task_serializer.dart';
+import 'package:todo/repository/serializers/task_serializer.dart';
 
 class TaskService {
   Dio _dio = Dio();
