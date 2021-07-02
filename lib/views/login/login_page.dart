@@ -147,7 +147,7 @@ class LoginPage extends StatelessWidget {
   _login(context) {
     if (doLogin(_loginController.text, _passwordController.text)) {
       currentUser = User(_loginController.text, _passwordController.text);
-      Navigator.pushReplacementNamed(context, 'home_page');
+      Navigator.pushReplacementNamed(context, 'groups_page');
     } else {
       failedDialog(context, "Login ou senha incorretos");
     }

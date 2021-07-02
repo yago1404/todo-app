@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:todo/commons/consts.dart';
 import 'package:todo/commons/database_test.dart';
+import 'package:todo/models/group/group.dart';
 import 'package:todo/models/task/task.dart';
 import 'package:todo/repository/serializers/task_serializer.dart';
 
@@ -19,6 +20,20 @@ class TaskService {
     List<Task> tasksList = [];
     try {
       var response = await _dio.get('${this._url}tasks/');
+      for (var i in response.data) {
+        tasksList.add(_taskSerializer.serializer(i));
+      }
+      return tasksList;
+    } catch (e) {
+      print(e);
+      return [];
+    }
+  }
+
+  Future<List<Task>> getGroupTasks(Group group) async {
+    List<Task> tasksList = [];
+    try {
+      var response = await _dio.get('${this._url}tasks/?group=${group.id}');
       for (var i in response.data) {
         tasksList.add(_taskSerializer.serializer(i));
       }

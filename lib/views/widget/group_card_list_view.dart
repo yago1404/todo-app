@@ -16,20 +16,20 @@ class _GroupListViewState extends State<GroupListView> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * .15),
+      margin: EdgeInsets.only(top: 40),
       child: widget.groupList!.length <= 0
           ? _listIsEmpty()
           : Scrollbar(
-        isAlwaysShown: kIsWeb,
-        child: ListView.builder(
-          itemCount: widget.groupList!.length,
-          itemBuilder: (BuildContext context, int index) {
-            return GroupCard(
-              group: widget.groupList![index],
-            );
-          },
-        ),
-      ),
+              isAlwaysShown: kIsWeb,
+              child: ListView.builder(
+                itemCount: widget.groupList!.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return GroupCard(
+                    group: widget.groupList![index],
+                  );
+                },
+              ),
+            ),
     );
   }
 

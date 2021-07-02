@@ -14,7 +14,7 @@ class GroupService {
     _dio.options.receiveTimeout = 5000;
   }
 
-  Future<List<Group>> getAllGroups() async {
+  Future<List<Group>> get getAllGroups async {
     List<Group> groups = [];
     try {
       Response response = await _dio.get('${_url}group/');
